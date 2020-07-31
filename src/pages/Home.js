@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import Navbar from "../components/Navbar";
-import NavbarClone from "../components/NavbarClone";
 import {getServices} from "../store";
 import ServiceItem from "../components/service/ServiceItem";
 import Hero from "../components/Hero";
@@ -23,8 +21,6 @@ class Home extends Component {
     const {services} = this.state;
     return (
       <div>
-        <Navbar/>
-        <NavbarClone/>
         <Hero/>
         <section className="section section-feature-grey is-medium">
           <div className="container">

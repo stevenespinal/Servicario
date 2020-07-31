@@ -1,18 +1,16 @@
-/* eslint jsx-a11y/anchor-is-valid: 0 */
-
 import React from 'react'
+import {Link} from "react-router-dom";
 
-
-const Navbar = () => {
+const Navbar = ({id}) => {
   return (
-    <nav className="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
+    <nav id={id ? id : ""} className="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://cssninja.io">
+          <Link className="navbar-item" to="/">
             <div className="title">Servicio</div>
-          </a>
+          </Link>
 
-          <a className="navbar-item is-hidden-desktop is-hidden-tablet">
+          <a href="/" className="navbar-item is-hidden-desktop is-hidden-tablet">
             <div id="menu-icon-wrapper" className="menu-icon-wrapper" style={{visibility: 'visible'}}>
               <svg width="1000px" height="1000px">
                 <path className="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
@@ -23,7 +21,7 @@ const Navbar = () => {
             </div>
           </a>
 
-          <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+          <a href="/" role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -32,7 +30,7 @@ const Navbar = () => {
 
         <div id="navbar-menu" className="navbar-menu is-static">
           <div className="navbar-start">
-            <a className="navbar-item is-hidden-mobile">
+            <a href="/" className="navbar-item is-hidden-mobile">
               <div id="menu-icon-wrapper" className="menu-icon-wrapper" style={{visibility: 'visible'}}>
                 <svg width="1000px" height="1000px">
                   <path className="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
@@ -45,37 +43,37 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-end">
-            <a href="#" className="navbar-item is-secondary">
-              Features
-            </a>
-            <a href="#" className="navbar-item is-secondary">
-              Pricing
-            </a>
+            <Link to="/" className="navbar-item is-secondary">
+              Home
+            </Link>
+            <Link to="/faq" className="navbar-item is-secondary">
+              Faq
+            </Link>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">
-                Dropdown
-              </a>
+              <Link to="/" className="navbar-link">
+                Services
+              </Link>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item">
+                <Link to="/" className="navbar-item">
                   Dropdown item
-                </a>
-                <a className="navbar-item">
+                </Link>
+                <Link to="/" className="navbar-item">
                   Dropdown item
-                </a>
-                <a className="navbar-item">
+                </Link>
+                <Link to="/" className="navbar-item">
                   Dropdown item
-                </a>
+                </Link>
               </div>
             </div>
-            <a href="#" className="navbar-item is-secondary modal-trigger" data-modal="auth-modal">
+            <Link to="/login" className="navbar-item is-secondary modal-trigger" data-modal="auth-modal">
               Log in
-            </a>
-            <a className="navbar-item">
+            </Link>
+            <Link to="/register" className="navbar-item">
               <span className="button signup-button rounded secondary-btn raised">
                   Sign up
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
