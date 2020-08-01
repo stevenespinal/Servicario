@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 
 const initStore = () => {
   const serviceApp = combineReducers({
-    service: () => ({testingData: 'Hello', testingNumber: 10})
+    service: () => ({testingData: 'Hello World', testingNumber: 10})
   });
 
   const browserSupport =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
