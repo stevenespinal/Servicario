@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {getServices} from "../store";
+// import {getServices} from "../store";
+import {fetchServices} from "../actions";
 import {connect} from "react-redux";
 import ServiceItem from "../components/service/ServiceItem";
 import Hero from "../components/Hero";
@@ -10,18 +11,20 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const services = getServices();
-    this.setState({
-      services
-    });
+    this.props.dispatch(fetchServices());
+
+    // const services = getServices();
+    // this.setState({
+    //   services
+    // });
   }
 
   renderServices = services => services.map(service => (<ServiceItem service={service} key={service.id}/>));
 
   render() {
-    const {services} = this.state;
-    const {service: {testingData, testingNumber}} = this.props;
-    console.log(testingData, testingNumber);
+    // const {services} = this.state;
+    const {service} = this.props;
+    // console.log(service)
     return (
       <div>
         <Hero/>
@@ -35,7 +38,7 @@ class Home extends Component {
 
             <div className="content-wrapper">
               <div className="columns">
-                {this.renderServices(services)}
+                {this.renderServices(service)}
               </div>
             </div>
           </div>
@@ -46,7 +49,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  service: state.service
+  service: state.service.items
 })
 
 export default connect(mapStateToProps)(Home)
