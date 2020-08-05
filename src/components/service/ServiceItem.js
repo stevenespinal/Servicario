@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const ServiceItem = ({service}) => {
 
@@ -8,23 +9,25 @@ const ServiceItem = ({service}) => {
     return text.substr(0, maxLength) + '...';
   }
 
+  const {id, title, image, description} = service;
+
   return (
-    <div key={service.id} className="column is-one-third">
+    <div key={id} className="column is-one-third">
       <div className="feature-card is-bordered has-text-centered revealOnScroll delay-1"
            data-animation="fadeInLeft">
         <div className="card-title">
-          <h4>{service.title}</h4>
+          <h4>{title}</h4>
         </div>
         <div className="card-icon">
           <img
-            src={service.image}
+            src={image}
             alt=""/>
         </div>
         <div className="card-text">
-          <p>{shortText(service.description)}</p>
+          <p>{shortText(description)}</p>
         </div>
         <div className="card-action">
-          <a href="/" className="button btn-align-md accent-btn raised">Learn More</a>
+          <Link to={`/services/${id}`} className="button btn-align-md accent-btn raised">Learn More</Link>
         </div>
       </div>
     </div>

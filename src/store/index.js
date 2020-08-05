@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import servicesReducer from "../reducers";
 
-const addLoggerToDispatch = store => nextDispatch => action => {
+const logger = store => nextDispatch => action => {
   console.group(action.type);
   console.log(`%c prev state`, `color: red`, store.getState());
   console.log(`%c action`, `color: green`, action);
@@ -13,7 +13,7 @@ const addLoggerToDispatch = store => nextDispatch => action => {
 }
 
 
-const addPromiseToDispatch = store => nextDispatch => action => {
+const promise = store => nextDispatch => action => {
   if (typeof action.then === 'function') {
     return action.then(nextDispatch);
   }
@@ -28,7 +28,7 @@ const applyMiddlewares = (store, middlewares) => {
 }
 
 const initStore = () => {
-  const middlewares = [addPromiseToDispatch];
+  const middlewares = [promise];
   const serviceApp = combineReducers({
     service: servicesReducer
   });
@@ -36,7 +36,7 @@ const initStore = () => {
   const browserSupport = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
   const store = createStore(serviceApp, browserSupport);
   if (process.env.NODE_ENV !== 'production') {
-    middlewares.push(addLoggerToDispatch);
+    middlewares.push(logger);
   }
 
   applyMiddlewares(store, middlewares);
