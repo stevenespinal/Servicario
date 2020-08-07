@@ -30,18 +30,6 @@ class Home extends Component {
               </div>
             </div>
           </div>
-
-          {/*<div>*/}
-          {/*  last viewed item*/}
-          {/*  {console.log("service", service)}*/}
-          {/*  {service && (*/}
-          {/*    <div>*/}
-          {/*      <h1>{service.title}</h1>*/}
-          {/*      <p>{service.description}</p>*/}
-          {/*      <p>{service.price}</p>*/}
-          {/*    </div>*/}
-          {/*  )}*/}
-          {/*</div>*/}
         </section>
       </div>
     )
