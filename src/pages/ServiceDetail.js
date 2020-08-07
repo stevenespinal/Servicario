@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
-import {fetchService, requestService, resetPreviousService} from "../actions";
+import {fetchService} from "../actions";
 import {useParams} from 'react-router-dom'
 import Spinner from "../components/Spinner";
 
@@ -10,17 +10,16 @@ const ServiceDetail = ({dispatch, service, isFetching}) => {
 
 
   useEffect(() => {
-    dispatch(resetPreviousService());
-    dispatch(requestService());
+    // dispatch(resetPreviousService());
+    // dispatch(requestService());
     dispatch(fetchService(id));
   }, [dispatch, id]);
 
 
   const {image, title, description} = service;
 
-  if (isFetching && !service.id) {
-    return <Spinner/>
-  }
+  if (id !== service.id) return <Spinner/>;
+  if (isFetching && !service.id) return <Spinner/>;
 
   return (
     <section className="hero is-fullheight is-default is-bold">
@@ -49,15 +48,15 @@ const ServiceDetail = ({dispatch, service, isFetching}) => {
           </div>
         </div>
       </div>
-      <div className="hero-foot">
-        <div className="container">
-          <div className="tabs is-centered">
-            <ul>
-              <li><a href="/">And this is the bottom</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {/*<div className="hero-foot">*/}
+      {/*  <div className="container">*/}
+      {/*    <div className="tabs is-centered">*/}
+      {/*      <ul>*/}
+      {/*        <li><a href="/">And this is the bottom</a></li>*/}
+      {/*      </ul>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </section>
   )
 }
