@@ -30,6 +30,18 @@ class Home extends Component {
               </div>
             </div>
           </div>
+
+          {/*<div>*/}
+          {/*  last viewed item*/}
+          {/*  {console.log("service", service)}*/}
+          {/*  {service && (*/}
+          {/*    <div>*/}
+          {/*      <h1>{service.title}</h1>*/}
+          {/*      <p>{service.description}</p>*/}
+          {/*      <p>{service.price}</p>*/}
+          {/*    </div>*/}
+          {/*  )}*/}
+          {/*</div>*/}
         </section>
       </div>
     )
@@ -37,7 +49,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  services: state.services.items
+  services: state.services.all,
+  service: state.selectedService.item
 })
 
 export default connect(mapStateToProps)(Home)

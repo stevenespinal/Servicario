@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from "react-redux";
 import {fetchService} from "../actions";
 import {useParams} from 'react-router-dom'
+import Spinner from "../components/Spinner";
 
 const ServiceDetail = ({dispatch, service}) => {
 
@@ -14,6 +15,14 @@ const ServiceDetail = ({dispatch, service}) => {
 
 
   const {image, title, description} = service;
+
+  // if (isFetching && !service.id) {
+  //
+  // }
+
+  if (true) {
+    return <Spinner/>
+  }
 
   return (
     <section className="hero is-fullheight is-default is-bold">

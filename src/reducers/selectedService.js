@@ -1,17 +1,21 @@
 import {FETCH_SERVICE_SUCCESS} from "../types";
+import {combineReducers} from "redux";
 
-const INITIAL_STATE = {
-  item: {}
-}
-
-const selectedService = (state = INITIAL_STATE, action) => {
-  const {type, service} = action;
-  switch (type) {
-    case FETCH_SERVICE_SUCCESS:
-      return {item: service}
-    default:
-      return state;
+const initSelectedService = () => {
+  const item = (state = {}, action) => {
+    const {type, service} = action;
+    switch (type) {
+      case FETCH_SERVICE_SUCCESS:
+        return service
+      default:
+        return state;
+    }
   }
+  return combineReducers({
+    item
+  });
 }
+
+const selectedService = initSelectedService();
 
 export default selectedService;
