@@ -6,11 +6,13 @@ export const fetchServices = () => dispatch => api.fetchServices().then(services
   services
 }));
 
-export const fetchService = id => dispatch => {
-  dispatch({
-    type: FETCH_SERVICE_SUCCESS,
-    service: {}
-  });
+export const fetchService = id => (dispatch, getState) => {
+
+  const lastService = getState().selectedService.item;
+
+  if (lastService.id && lastService.id === id) {
+    return Promise.resolve()
+  }
 
   dispatch({type: REQUEST_SERVICE});
 

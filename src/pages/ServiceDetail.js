@@ -5,21 +5,15 @@ import {useParams} from 'react-router-dom'
 import Spinner from "../components/Spinner";
 
 const ServiceDetail = ({dispatch, service, isFetching}) => {
-
   const {id} = useParams();
-
+  const {image, title, description} = service;
 
   useEffect(() => {
-    // dispatch(resetPreviousService());
-    // dispatch(requestService());
     dispatch(fetchService(id));
   }, [dispatch, id]);
 
 
-  const {image, title, description} = service;
-
-  if (id !== service.id) return <Spinner/>;
-  if (isFetching && !service.id) return <Spinner/>;
+  if (isFetching || id !== service.id) return <Spinner/>;
 
   return (
     <section className="hero is-fullheight is-default is-bold">
