@@ -1,13 +1,15 @@
 /* eslint no-useless-escape: 0 */
 import React from "react";
 import {useForm} from "react-hook-form";
+import {isValidImage, isValidUrl, sameAs} from "../../helpers/validators";
 
 const RegisterForm = () => {
-  const {register, handleSubmit, errors} = useForm();
+  const {register, handleSubmit, errors, getValues} = useForm();
 
 
   const getFormData = data => {
     console.log(data);
+
   }
 
   return (
@@ -56,12 +58,13 @@ const RegisterForm = () => {
                  autoFocus=""
                  ref={register({
                    required: true,
-                   pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm
+                   validate: {isValidImage, isValidUrl}
                  })}
           />
           {errors.avatar && <div className="form-error">
             {errors.avatar.type === "required" && <span className="help is-danger">Avatar is required</span>}
-            {errors.avatar.type === "pattern" && <span className="help is-danger">Avatar is not valid</span>}
+            {errors.avatar.type === "isValidImage" && <span className="help is-danger">Avatar image extension is not valid</span>}
+            {errors.avatar.type === "isValidUrl" && <span className="help is-danger">Avatar url is not valid</span>}
           </div>}
         </div>
       </div>
@@ -87,11 +90,12 @@ const RegisterForm = () => {
                  type="password"
                  placeholder="Repeat Password"
                  autoComplete="current-password"
-                 ref={register({required: true, minLength: 6})}
+                 ref={register({required: true, minLength: 6, validate: {sameAs: sameAs(getValues, 'password')}})}
           />
           {errors.passwordConfirmation && <div className="form-error">
             {errors.passwordConfirmation.type === "required" && <span className="help is-danger">Password Confirmation is required</span>}
             {errors.passwordConfirmation.type === "minLength" && <span className="help is-danger">Password must be at least 6 characters</span>}
+            {errors.passwordConfirmation.type === "sameAs" && <span className="help is-danger">Password Confirmation must match password</span>}
           </div>}
         </div>
       </div>
