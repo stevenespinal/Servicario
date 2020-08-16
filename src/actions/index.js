@@ -21,3 +21,5 @@ export const fetchService = id => (dispatch, getState) => {
     service
   }));
 }
+
+export const register = registerFormDate => api.register({...registerFormDate});

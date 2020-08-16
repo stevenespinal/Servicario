@@ -1,8 +1,16 @@
 import React from 'react'
 import RegisterForm from "../components/auth";
+import {register} from "../actions";
 
-const Register = () => {
+const Register = ({dispatch}) => {
 
+  const registerUser = userData => {
+    register(userData).then(() => {
+
+    }, errorMessage => {
+
+    });
+  }
   return (
     <div className="auth-page">
       <div className="container has-text-centered">
@@ -13,7 +21,7 @@ const Register = () => {
             <figure className="avatar">
               <img src="https://placehold.it/128x128" alt="placeholder"/>
             </figure>
-            <RegisterForm/>
+            <RegisterForm onRegister={registerUser}/>
           </div>
           <p className="has-text-grey">
             <a href="/">Sign In With Google</a>&nbsp;
@@ -25,5 +33,6 @@ const Register = () => {
     </div>
   )
 }
+
 
 export default Register;
