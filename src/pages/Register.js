@@ -1,16 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 import RegisterForm from "../components/auth";
 import {register} from "../actions";
+import {useToasts} from "react-toast-notifications";
+import {Redirect} from "react-router-dom";
 
-const Register = ({dispatch}) => {
+const Register = ({dispatch, history}) => {
+  const [redirect, setRedirect] = useState(false);
+  const {addToast} = useToasts();
 
   const registerUser = userData => {
     register(userData).then(() => {
-
-    }, errorMessage => {
-
-    });
+      setRedirect(true)
+      addToast(`Welcome ${userData.fullName}, your account has been successfully created.`, {
+        appearance: "success", autoDismissTimeout: 3000,
+        autoDismiss: true
+      })
+    }, errorMessage => addToast(errorMessage, {
+      appearance: 'error',
+      autoDismissTimeout: 3000,
+      autoDismiss: true
+    }));
   }
+
+  if (redirect) return <Redirect to="/"/>
   return (
     <div className="auth-page">
       <div className="container has-text-centered">
@@ -33,6 +45,5 @@ const Register = ({dispatch}) => {
     </div>
   )
 }
-
 
 export default Register;
