@@ -20,3 +20,11 @@ export const register = async ({email, password, fullName, avatar}) => {
   }
 }
 
+export const login = async({email, password}) => {
+  try {
+    return await firebase.auth().signInWithEmailAndPassword(email, password);
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+}
+

@@ -4,7 +4,7 @@ import {register} from "../actions";
 import {useToasts} from "react-toast-notifications";
 import {Redirect} from "react-router-dom";
 
-const Register = ({dispatch, history}) => {
+const Register = () => {
   const [redirect, setRedirect] = useState(false);
   const {addToast} = useToasts();
 
@@ -14,7 +14,7 @@ const Register = ({dispatch, history}) => {
       addToast(`Welcome ${userData.fullName}, your account has been successfully created.`, {
         appearance: "success", autoDismissTimeout: 3000,
         autoDismiss: true
-      })
+      });
     }, errorMessage => addToast(errorMessage, {
       appearance: 'error',
       autoDismissTimeout: 3000,

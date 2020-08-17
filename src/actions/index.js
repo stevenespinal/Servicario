@@ -22,4 +22,5 @@ export const fetchService = id => (dispatch, getState) => {
   }));
 }
 
-export const register = registerFormDate => api.register({...registerFormDate});
+export const register = registerFormData => api.register({...registerFormData});
+export const login = loginData => api.login({...loginData});
