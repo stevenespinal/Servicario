@@ -1,4 +1,4 @@
-import {FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE} from "../types";
+import {FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE, SET_AUTH_USER} from "../types";
 import * as api from "../api";
 
 export const fetchServices = () => dispatch => api.fetchServices().then(services => dispatch({
@@ -28,11 +28,8 @@ export const onAuthStateChanged = onAuthCallback => api.onAuthStateChanged(onAut
 
 export const storeAuthUser = authUser => dispatch => {
   if (authUser) {
-    return api.getUserProfile(authUser.uid).then(profile => {
-      // dispatch
-      return profile;
-    })
+    return api.getUserProfile(authUser.uid).then(profile => dispatch({user: profile, type: SET_AUTH_USER}));
   } else {
-    return;
+    return dispatch({user: null, type: SET_AUTH_USER});
   }
 }

@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     this.unsubscribeAuth = onAuthStateChanged(authUser => {
-      console.log(authUser);
+      // console.log(authUser);
       store.dispatch(storeAuthUser(authUser));
     });
   }
