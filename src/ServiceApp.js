@@ -4,18 +4,24 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Routes from "./Routes";
 import Spinner from "./components/Spinner";
+import {logout} from "./actions";
 
 class ServiceApp extends Component {
 
+
+  handleLogOut = () => {
+
+    this.props.dispatch(logout())
+  }
+
   renderApplication = auth => (
     <>
-      <Navbar auth={auth}/>
-      <Navbar id="navbar-clone" auth={auth}/>
+      <Navbar auth={auth} logout={this.handleLogOut}/>
+      <Navbar id="navbar-clone" auth={auth} logout={this.handleLogOut}/>
       <Sidebar/>
       <Routes/>
     </>
   );
-
 
 
   render() {

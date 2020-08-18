@@ -28,6 +28,7 @@ export const login = async ({email, password}) => {
   }
 }
 
+export const logout = () => firebase.auth().signOut();
 
 export const onAuthStateChanged = onAuthCallback => firebase.auth().onAuthStateChanged(onAuthCallback);
 

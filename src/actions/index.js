@@ -24,6 +24,7 @@ export const fetchService = id => (dispatch, getState) => {
 
 export const register = registerFormData => api.register({...registerFormData});
 export const login = loginData => api.login({...loginData});
+export const logout = () => dispatch => api.logout().then(() => dispatch({user: null, type: SET_AUTH_USER}));
 export const onAuthStateChanged = onAuthCallback => api.onAuthStateChanged(onAuthCallback);
 
 export const storeAuthUser = authUser => dispatch => {
