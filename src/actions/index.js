@@ -24,3 +24,15 @@ export const fetchService = id => (dispatch, getState) => {
 
 export const register = registerFormData => api.register({...registerFormData});
 export const login = loginData => api.login({...loginData});
+export const onAuthStateChanged = onAuthCallback => api.onAuthStateChanged(onAuthCallback);
+
+export const storeAuthUser = authUser => dispatch => {
+  if (authUser) {
+    return api.getUserProfile(authUser.uid).then(profile => {
+      // dispatch
+      return profile;
+    })
+  } else {
+    return;
+  }
+}

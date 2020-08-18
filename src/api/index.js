@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import db from "../db";
 
-const createUserProfile = userProfile => db.collection("profile").doc(userProfile.uid).set(userProfile);
+const createUserProfile = userProfile => db.collection("profiles").doc(userProfile.uid).set(userProfile);
 
 export const fetchService = id => db.collection("services").doc(id).get().then(snapshot => ({id: snapshot.id, ...snapshot.data()}));
 
@@ -20,7 +20,7 @@ export const register = async ({email, password, fullName, avatar}) => {
   }
 }
 
-export const login = async({email, password}) => {
+export const login = async ({email, password}) => {
   try {
     return await firebase.auth().signInWithEmailAndPassword(email, password);
   } catch (error) {
@@ -28,3 +28,7 @@ export const login = async({email, password}) => {
   }
 }
 
+
+export const onAuthStateChanged = onAuthCallback => firebase.auth().onAuthStateChanged(onAuthCallback);
+
+export const getUserProfile = uid => db.collection("profiles").doc(uid).get().then(snapshot => ({uid, ...snapshot.data()}))
