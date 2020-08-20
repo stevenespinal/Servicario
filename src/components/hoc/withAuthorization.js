@@ -1,25 +1,20 @@
 import React from "react";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const withAuthorization = Component => {
   class WithAuthorization extends React.Component {
 
-    state = {
-      secretData: "Hello World, this is a secret",
-      secretNumber: 777
-    }
-
-    someFunc() {
-      alert("Hello");
-    }
-
     render() {
-      return (
-        <Component someFunc={this.someFunc} {...this.state}/>
-      )
+      const {auth, dispatch, ...rest} = this.props;
+
+      return auth.isAuth ? <Component {...rest}/> : <Redirect to="/login"/>
     }
   }
 
-  return WithAuthorization;
+  const mapStateToProps = ({auth}) => ({auth});
+
+  return connect(mapStateToProps)(WithAuthorization);
 }
 
 export default withAuthorization;

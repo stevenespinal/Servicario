@@ -10,7 +10,7 @@ class ServiceApp extends Component {
 
 
   handleLogOut = () => {
-    this.props.dispatch(logout())
+    this.props.logout();
   }
 
   renderApplication = auth => (
@@ -33,4 +33,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(ServiceApp)
+export default connect(mapStateToProps, {logout})(ServiceApp)

@@ -6,7 +6,7 @@ import Hero from "../components/Hero";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchServices());
+    this.props.fetchServices();
   }
 
   renderServices = services => services.map(service => (<ServiceItem service={service} key={service.id}/>));
@@ -41,4 +41,4 @@ const mapStateToProps = state => ({
   service: state.selectedService.item
 })
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, {fetchServices})(Home)

@@ -4,13 +4,13 @@ import {fetchService} from "../actions";
 import {useParams} from 'react-router-dom'
 import Spinner from "../components/Spinner";
 
-const ServiceDetail = ({dispatch, service, isFetching}) => {
+const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
   const {id} = useParams();
   const {image, title, description} = service;
 
   useEffect(() => {
-    dispatch(fetchService(id));
-  }, [dispatch, id]);
+    fetchService(id);
+  }, [fetchService, id]);
 
 
   if (isFetching || id !== service.id) return <Spinner/>;
@@ -60,4 +60,4 @@ const mapStateToProps = ({selectedService: {item, isFetching}}) => ({
   isFetching: isFetching
 })
 
-export default connect(mapStateToProps)(ServiceDetail)
+export default connect(mapStateToProps, {fetchService})(ServiceDetail)

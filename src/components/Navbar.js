@@ -22,7 +22,7 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
     });
   }
 
-  console.log("auth", auth);
+  // console.log("auth", auth);
   const {user, isAuth} = auth;
   return (
     <nav id={id ? id : ""} className="navbar is-fresh is-transparent no-shadow" role="navigation"

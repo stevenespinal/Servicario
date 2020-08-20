@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import {login} from "../actions";
 import {useToasts} from "react-toast-notifications";
 import {Redirect} from "react-router-dom";
+import onlyGuest from "../components/hoc/onlyGuest";
 
 
 const Login = () => {
@@ -92,4 +93,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default onlyGuest(Login);
