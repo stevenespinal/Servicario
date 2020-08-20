@@ -19,14 +19,16 @@ export const register = async ({email, password, fullName, avatar}) => {
     return Promise.reject(error.message);
   }
 }
+//
+// export const login = async ({email, password}) => {
+//   try {
+//     return await firebase.auth().signInWithEmailAndPassword(email, password);
+//   } catch (error) {
+//     return Promise.reject(error.message);
+//   }
+// }
 
-export const login = async ({email, password}) => {
-  try {
-    return await firebase.auth().signInWithEmailAndPassword(email, password);
-  } catch (error) {
-    return Promise.reject(error.message);
-  }
-}
+export const login = ({email, password}) => firebase.auth().signInWithEmailAndPassword(email, password).catch(error => Promise.reject(error.message));
 
 export const logout = () => firebase.auth().signOut();
 

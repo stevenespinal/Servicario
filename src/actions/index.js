@@ -1,4 +1,4 @@
-import {FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE, SET_AUTH_USER} from "../types";
+import {FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE, SET_AUTH_USER, RESET_AUTH_STATE} from "../types";
 import * as api from "../api";
 
 export const fetchServices = () => dispatch => api.fetchServices().then(services => dispatch({
@@ -34,3 +34,7 @@ export const storeAuthUser = authUser => dispatch => {
     return dispatch({user: null, type: SET_AUTH_USER});
   }
 }
+
+export const resetAuthState = () => ({
+  type: RESET_AUTH_STATE
+})

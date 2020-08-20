@@ -3,13 +3,16 @@ import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 
 
-const Navbar = ({id, auth, logout}) => {
+const Navbar = ({id, auth, logout, loadFresh}) => {
   const {addToast} = useToasts();
 
   useEffect(() => {
+    if (!loadFresh) return;
     const script = document.createElement("script");
     script.src = `${process.env.PUBLIC_URL}/js/fresh.js`;
-  }, []);
+    script.async = true;
+    document.body.appendChild(script);
+  }, [loadFresh]);
 
   const handleToast = () => {
     logout();
