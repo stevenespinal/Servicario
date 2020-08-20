@@ -1,10 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 
 
 const Navbar = ({id, auth, logout}) => {
   const {addToast} = useToasts();
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `${process.env.PUBLIC_URL}/js/fresh.js`;
+  }, []);
 
   const handleToast = () => {
     logout();
@@ -87,7 +92,8 @@ const Navbar = ({id, auth, logout}) => {
                 </Link>
               </div>
             </div>
-            {isAuth && <Link to="/"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
+            {isAuth &&
+            <Link to="/"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
             {!isAuth && (
               <>
                 <Link to="/login" className="navbar-item is-secondary modal-trigger" data-modal="auth-modal">

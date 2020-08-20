@@ -16,7 +16,7 @@ class ServiceApp extends Component {
 
   renderApplication = auth => (
     <>
-      <Navbar auth={auth} logout={this.handleLogOut}/>
+      <Navbar id="navbar-main" auth={auth} logout={this.handleLogOut}/>
       <Navbar id="navbar-clone" auth={auth} logout={this.handleLogOut}/>
       <Sidebar/>
       <Routes/>
