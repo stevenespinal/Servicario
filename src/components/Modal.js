@@ -27,7 +27,7 @@ const Modal = ({openButtonText, children, onModalSubmit}) => {
             {children}
           </section>
           <footer className="modal-card-foot">
-            <button className="button is-success" onClick={onModalSubmit}>Save changes</button>
+            <button className="button is-success" onClick={() => onModalSubmit(() => changeModalState(false))}>Save changes</button>
             <button className="button" onClick={() => changeModalState(false)}>Cancel</button>
           </footer>
         </div>

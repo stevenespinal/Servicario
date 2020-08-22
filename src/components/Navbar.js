@@ -93,6 +93,12 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
                 <Link to="/services/me" className="navbar-item">
                   Manage Your Services
                 </Link>
+                <Link to="/offers/sent" className="navbar-item">
+                  Sent Offers
+                </Link>
+                <Link to="/offers/received" className="navbar-item">
+                  Received Offers
+                </Link>
               </div>
             </div>}
             {isAuth &&

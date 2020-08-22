@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom'
 import Spinner from "../components/Spinner";
 import OfferModal from "../components/service/OfferModal";
 
-const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
+const ServiceDetail = ({ service, isFetching, fetchService, auth}) => {
   const {id} = useParams();
   const {image, title, description} = service;
 
@@ -35,7 +35,7 @@ const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
               </h2>
               <br/>
               <div className="has-text-centered">
-                <OfferModal service={service}/>
+                <OfferModal auth={auth} service={service}/>
               </div>
             </div>
           </div>
@@ -45,9 +45,10 @@ const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
   )
 }
 
-const mapStateToProps = ({selectedService: {item, isFetching}}) => ({
+const mapStateToProps = ({auth, selectedService: {item, isFetching}}) => ({
   service: item,
-  isFetching: isFetching
+  isFetching: isFetching,
+  auth
 })
 
 export default connect(mapStateToProps, {fetchService})(ServiceDetail)

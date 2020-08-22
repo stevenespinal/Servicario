@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import Modal from "../Modal";
+import {createOffer, createRef} from "../../actions";
+import {useToasts} from "react-toast-notifications";
 
-const OfferModal = ({service}) => {
+const OfferModal = ({service, auth}) => {
   const [offer, setOffer] = useState({
     fromUser: '',
     toUser: '',
@@ -11,6 +13,8 @@ const OfferModal = ({service}) => {
     time: 0,
     note: ''
   });
+  const {addToast} = useToasts();
+
 
   const handleChange = ({target: {name, value}}) => {
     if (name === "time") {
@@ -20,13 +24,23 @@ const OfferModal = ({service}) => {
     return setOffer({...offer, [name]: value});
   }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // console.log(offer);
+  const handleSubmit = closeModal => {
+    const offerCopy = {...offer};
+    offerCopy.fromUser = createRef("profiles", auth.user.uid);
+    offerCopy.toUser = createRef("profiles", service.user.id);
+    offerCopy.service = createRef("services", service.id);
+    offerCopy.time = parseInt(offer.time, 10);
+    createOffer(offerCopy).then(() => {
+      closeModal();
+      addToast(`Your offer has been successfully created.`, {
+        appearance: "success", autoDismissTimeout: 3000,
+        autoDismiss: true
+      });
+    }, err => console.error(err));
   }
 
-  console.log(service);
   const {user} = service;
+  // console.log(service);
   return (
     <Modal openButtonText="Create An Offer" onModalSubmit={handleSubmit}>
       <div className="field">

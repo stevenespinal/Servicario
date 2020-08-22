@@ -10,7 +10,8 @@ import Register from "./pages/Register";
 import Secret from "./pages/Secret";
 import ServiceCreate from "./pages/services/ServiceCreate";
 import UserServices from "./pages/services/UserServices";
-
+import SentOffers from "./pages/offers/SentOffers";
+import ReceivedOffers from "./pages/offers/ReceivedOffers";
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
@@ -21,6 +22,8 @@ const Routes = () => (
     <Route path="/services/new" component={ServiceCreate}/>
     <Route path="/services/me" component={UserServices}/>
     <Route path="/services/:id" component={ServiceDetail}/>
+    <Route path="/offers/sent" component={SentOffers}/>
+    <Route path="/offers/received" component={ReceivedOffers}/>
     <Route path="/faq" component={Faq}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>

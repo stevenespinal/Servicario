@@ -1,5 +1,6 @@
 import db from "../db";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const createUserProfile = userProfile => db.collection("profiles").doc(userProfile.uid).set(userProfile);
 export const register = async ({email, password, fullName, avatar}) => {
