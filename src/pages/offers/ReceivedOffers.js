@@ -83,8 +83,6 @@ const mapStateToProps = ({offers}) => ({
 });
 
 const mapDispatchToProps = () => ({
-  acceptOffer,
-  declineOffer,
   fetchReceivedOffer,
   changeOfferStatus
 })
