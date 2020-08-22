@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import withAuthorization from "../../components/hoc/withAuthorization";
 import {fetchUserServices} from "../../actions";
-import {connect} from "react-redux";
 import ServiceItem from "../../components/service/ServiceItem";
 
 class UserServices extends Component {
@@ -11,7 +10,7 @@ class UserServices extends Component {
   }
 
   render () {
-    const {services} = this.props;
+    const {auth: {user: {services}}} = this.props
     return (
       <div className="container">
         <div className="content-wrapper">
@@ -29,6 +28,4 @@ class UserServices extends Component {
   }
 }
 
-const mapStateToProps = ({auth: {user: {services}}}) => ({services});
-
-export default withAuthorization(connect(mapStateToProps)(UserServices));
+export default withAuthorization(UserServices);
