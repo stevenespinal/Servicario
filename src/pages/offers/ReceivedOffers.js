@@ -33,7 +33,7 @@ class ReceivedOffers extends Component {
                   <hr/>
                   <div className="service-offer">
                     <div>
-                      <span className="label">From User:</span> {o.toUser.fullName}
+                      <span className="label">From User:</span> {o.fromUser.fullName}
                     </div>
                     <div>
                       <span className="label">Note:</span> {o.note}

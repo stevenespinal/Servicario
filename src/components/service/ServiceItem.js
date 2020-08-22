@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const ServiceItem = ({service}) => {
+const ServiceItem = ({service, children, noButton}) => {
 
   const shortText = (text, maxLength = 50) => {
     if (!text) return '';
@@ -26,9 +26,14 @@ const ServiceItem = ({service}) => {
         <div className="card-text">
           <p>{shortText(description)}</p>
         </div>
-        <div className="card-action">
-          <Link to={`/services/${id}`} className="button btn-align-md accent-btn raised">Learn More</Link>
-        </div>
+        {children && <div className="card-text">
+          {children}
+        </div>}
+
+        {!noButton && (<div className="card-action">
+            <Link to={`/services/${id}`} className="button btn-align-md accent-btn raised">Learn More</Link>
+          </div>
+        )}
       </div>
     </div>
   )

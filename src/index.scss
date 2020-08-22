@@ -87,6 +87,54 @@ $section-grey: #fbfbfb;
   text-align: left !important;
 }
 
+// MODAL ENDS
+
+
+// SERVICE ITEM
+.service-detail-page {
+  .service-title {
+    margin-bottom: 5px;
+  }
+
+  .service-category {
+    margin-bottom: 30px;
+  }
+
+  .service-price {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .service-description {
+    font-size: 21px;
+  }
+
+  .user-container {
+    text-align: left !important;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .user-image {
+      margin-right: 20px;
+    }
+
+    .user-name {
+      font-size: 21px;
+    }
+  }
+}
+
+//.feature-card {
+//  height: auto !important;
+//}
+
+.offer-card {
+  height: auto;
+  padding-bottom: 20px;
+}
+// SEND SERVICE ITEM
+
 // SERVICE CREATE ENDS
 
 /* ==========================================================================
@@ -318,7 +366,8 @@ Cards and Card content styles
 // Feature Card
 .feature-card {
   width: 300px;
-  height: 320px;
+  height: auto;
+  padding-bottom: 20px;
   background-color: #fff;
   border-radius: 3px;
   margin: 0 auto;
