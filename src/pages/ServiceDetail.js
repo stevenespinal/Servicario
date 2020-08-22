@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {fetchService} from "../actions";
 import {useParams} from 'react-router-dom'
 import Spinner from "../components/Spinner";
-import Modal from "../components/Modal";
+import OfferModal from "../components/service/OfferModal";
 
 const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
   const {id} = useParams();
@@ -34,25 +34,13 @@ const ServiceDetail = ({dispatch, service, isFetching, fetchService}) => {
                 {description}
               </h2>
               <br/>
-              <p className="has-text-centered">
-                <Modal openButtonText="Create An Offer"/>
-                {/*<a href="/" className="button is-medium is-info is-outlined">*/}
-                {/*  Learn more*/}
-                {/*</a>*/}
-              </p>
+              <div className="has-text-centered">
+                <OfferModal service={service}/>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/*<div className="hero-foot">*/}
-      {/*  <div className="container">*/}
-      {/*    <div className="tabs is-centered">*/}
-      {/*      <ul>*/}
-      {/*        <li><a href="/">And this is the bottom</a></li>*/}
-      {/*      </ul>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
     </section>
   )
 }
