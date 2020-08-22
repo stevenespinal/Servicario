@@ -8,6 +8,8 @@ export const fetchService = id => db.collection("services").doc(id).get().then(s
 
 export const fetchServices = () => db.collection("services").get().then(snapshot => snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})));
 
+export const fetchUserServices = userId => db.collection("services").where("user", "==", userId).get().then(snapshot => snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})));
+
 export const register = async ({email, password, fullName, avatar}) => {
   try {
     const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -34,4 +36,6 @@ export const logout = () => firebase.auth().signOut();
 
 export const onAuthStateChanged = onAuthCallback => firebase.auth().onAuthStateChanged(onAuthCallback);
 
-export const getUserProfile = uid => db.collection("profiles").doc(uid).get().then(snapshot => ({uid, ...snapshot.data()}))
+export const getUserProfile = uid => db.collection("profiles").doc(uid).get().then(snapshot => ({uid, ...snapshot.data()}));
+
+export const createService = newService => db.collection("services").add(newService).then(docRef => docRef.id);

@@ -6,9 +6,9 @@ const withAuthorization = Component => {
   class WithAuthorization extends React.Component {
 
     render() {
-      const {auth, dispatch, ...rest} = this.props;
+      const {auth} = this.props;
 
-      return auth.isAuth ? <Component {...rest}/> : <Redirect to="/login"/>
+      return auth.isAuth ? <Component {...this.props}/> : <Redirect to="/login"/>
     }
   }
 

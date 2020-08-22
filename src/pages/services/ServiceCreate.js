@@ -1,6 +1,11 @@
 import React, {useState} from "react";
+import {createService} from "../../actions";
+import withAuthorization from "../../components/hoc/withAuthorization";
+import {Redirect} from "react-router-dom";
+import {useToasts} from "react-toast-notifications";
 
-const ServiceCreate = () => {
+const ServiceCreate = ({auth: {user: {uid}}}) => {
+  const [redirect, setRedirect] = useState(false);
   const [serviceForm, setServiceForm] = useState({
     category: 'mathematics',
     title: '',
@@ -8,6 +13,8 @@ const ServiceCreate = () => {
     image: '',
     price: null
   });
+  const {addToast} = useToasts();
+
 
   const handleChange = e => {
     const {name, value} = e.target;
@@ -16,8 +23,22 @@ const ServiceCreate = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    alert(JSON.stringify(serviceForm));
+    createService(serviceForm, uid).then(() => {
+      setRedirect(true);
+      addToast(`Successfully created service.`, {
+        appearance: "success", autoDismissTimeout: 3000,
+        autoDismiss: true
+      })
+    }).catch(error => {
+      addToast(error, {
+        appearance: 'error',
+        autoDismissTimeout: 3000,
+        autoDismiss: true
+      })
+    });
   }
+
+  if (redirect) return <Redirect to="/"/>
 
   return (
     <div className="create-page">
@@ -99,4 +120,4 @@ const ServiceCreate = () => {
   )
 }
 
-export default ServiceCreate;
+export default withAuthorization(ServiceCreate);

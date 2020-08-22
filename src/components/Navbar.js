@@ -75,26 +75,26 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
             <Link to="/" className="navbar-item is-secondary">
               Home
             </Link>
+            <Link to="/services" className="navbar-item is-secondary">
+              Services
+            </Link>
             <Link to="/faq" className="navbar-item is-secondary">
               Faq
             </Link>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <Link to="/" className="navbar-link">
-                Services
-              </Link>
 
+            {isAuth && <div className="navbar-item has-dropdown is-hoverable">
+              <Link to="#" className="navbar-link">
+                Manage
+              </Link>
               <div className="navbar-dropdown">
-                <Link to="/" className="navbar-item">
-                  Dropdown item
+                <Link to="/services/new" className="navbar-item">
+                  Create Service
                 </Link>
-                <Link to="/" className="navbar-item">
-                  Dropdown item
-                </Link>
-                <Link to="/" className="navbar-item">
-                  Dropdown item
+                <Link to="/services/me" className="navbar-item">
+                  Manage Your Services
                 </Link>
               </div>
-            </div>
+            </div>}
             {isAuth &&
             <Link to="/"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
             {!isAuth && (
