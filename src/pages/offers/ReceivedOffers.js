@@ -3,7 +3,7 @@ import withAuthorization from '../../components/hoc/withAuthorization'
 import ServiceItem from '../../components/service/ServiceItem'
 import {fetchReceivedOffer} from "../../actions";
 import {connect} from "react-redux";
-import {acceptOffer, declineOffer} from "../../actions";
+import {changeOfferStatus} from "../../actions";
 
 class ReceivedOffers extends Component {
   componentDidMount() {
@@ -12,13 +12,11 @@ class ReceivedOffers extends Component {
   }
 
   acceptOffer = offerId => {
-    // console.log(offer);
-    this.props.acceptOffer(offerId);
+    this.props.changeOfferStatus(offerId, "accepted");
   }
 
   declineOffer = offerId => {
-    // console.log(offer);
-    this.props.declineOffer(offerId);
+    this.props.changeOfferStatus(offerId, "declined");
   }
 
   statusClass = status => {
@@ -87,7 +85,8 @@ const mapStateToProps = ({offers}) => ({
 const mapDispatchToProps = () => ({
   acceptOffer,
   declineOffer,
-  fetchReceivedOffer
+  fetchReceivedOffer,
+  changeOfferStatus
 })
 
 export default withAuthorization(connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers));

@@ -34,36 +34,14 @@ export const fetchReceivedOffer = uid => dispatch => {
     return mappedOffers;
   });
 }
-//
-// export const changeOfferStatus = (offerId, status) => dispatch => {
-//   return api.changeOfferStatus(offerId, status).then(() => {
-//     dispatch({
-//       type: CHANGE_OFFER_STATUS,
-//       offerId,
-//       offersType: "received",
-//       status
-//     });
-//   });
-// }
 
-export const acceptOffer = offerId => dispatch => {
-  return api.changeOfferStatus(offerId, "accepted").then(() => {
+export const changeOfferStatus = (offerId, status) => dispatch => {
+  return api.changeOfferStatus(offerId, status).then(() => {
     dispatch({
       type: CHANGE_OFFER_STATUS,
       offerId,
       offersType: "received",
-      status: "accepted"
+      status
     });
-  });
-}
-
-export const declineOffer = offerId => dispatch => {
-  return api.changeOfferStatus(offerId, "declined").then(() => {
-    dispatch({
-      type: CHANGE_OFFER_STATUS,
-      offerId,
-      offersType: "received",
-      status: "declined"
-    })
   });
 }

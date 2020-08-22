@@ -17,7 +17,7 @@ const Login = () => {
       addToast(`Successfully logged in.`, {
         appearance: "success", autoDismissTimeout: 3000,
         autoDismiss: true
-      })
+      });
     }, errorMessage => addToast(errorMessage, {
       appearance: 'error',
       autoDismissTimeout: 3000,
