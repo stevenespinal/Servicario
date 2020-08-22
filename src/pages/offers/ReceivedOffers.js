@@ -3,12 +3,32 @@ import withAuthorization from '../../components/hoc/withAuthorization'
 import ServiceItem from '../../components/service/ServiceItem'
 import {fetchReceivedOffer} from "../../actions";
 import {connect} from "react-redux";
-// import Spinner from "../../components/Spinner";
+import {acceptOffer, declineOffer} from "../../actions";
 
 class ReceivedOffers extends Component {
   componentDidMount() {
     const {auth: {user}} = this.props;
-    this.props.dispatch(fetchReceivedOffer(user.uid));
+    this.props.fetchReceivedOffer(user.uid);
+  }
+
+  acceptOffer = offerId => {
+    // console.log(offer);
+    this.props.acceptOffer(offerId);
+  }
+
+  declineOffer = offerId => {
+    // console.log(offer);
+    this.props.declineOffer(offerId);
+  }
+
+  statusClass = status => {
+    if (status === "pending") {
+      return 'is-warning';
+    } else if (status === "accepted") {
+      return 'is-success';
+    } else {
+      return 'is-danger';
+    }
   }
 
   render() {
@@ -27,7 +47,7 @@ class ReceivedOffers extends Component {
                   noButton
                   className="offer-card"
                   service={o.service}>
-                  <div className="tag is-large">
+                  <div className={`tag is-large ${this.statusClass(o.status)}`}>
                     {o.status}
                   </div>
                   <hr/>
@@ -45,8 +65,12 @@ class ReceivedOffers extends Component {
                       <span className="label">Time:</span> {o.time} hours
                     </div>
                   </div>
+                  {o.status === "pending" && <div>
+                    <hr/>
+                    <button onClick={() => this.acceptOffer(o.id)} className="button is-success s-m-r">Accept</button>
+                    <button onClick={() => this.declineOffer(o.id)} className="button is-danger">Decline</button>
+                  </div>}
                 </ServiceItem>
-
               ))}
             </div>
           </div>
@@ -60,4 +84,10 @@ const mapStateToProps = ({offers}) => ({
   offers: offers.received
 });
 
-export default withAuthorization(connect(mapStateToProps)(ReceivedOffers));
+const mapDispatchToProps = () => ({
+  acceptOffer,
+  declineOffer,
+  fetchReceivedOffer
+})
+
+export default withAuthorization(connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers));
