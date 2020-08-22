@@ -7,6 +7,7 @@ const extractDataFromOffer = async (offer, userType) => {
   const service = await offer.service.get();
   const user = await offer[userType].get();
   offer.service = service.data();
+  offer.service.id = service.id;
   offer[userType] = user.data();
   return offer;
 }
