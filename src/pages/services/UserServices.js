@@ -29,6 +29,6 @@ class UserServices extends Component {
   }
 }
 
-const mapStateToProps = ({user: {services}}) => ({services})
+const mapStateToProps = ({auth: {user: {services}}}) => ({services});
 
 export default withAuthorization(connect(mapStateToProps)(UserServices));
