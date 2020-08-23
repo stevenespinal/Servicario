@@ -6,3 +6,6 @@ export const subscribeToMessages = (userId, callback) => db.collection("profiles
   const messages = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
   callback(messages);
 });
+
+
+export const markMessageAsRead = msg => db.collection("profiles").doc(msg.toUser).collection("messages").doc(msg.id).update({isRead: true});

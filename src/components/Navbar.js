@@ -27,6 +27,13 @@ const Navbar = ({id, auth, logout, loadFresh, messages}) => {
 
   const {user, isAuth} = auth;
 
+  const handleFilteredMsgs = messages => {
+    if (messages) {
+      const filteredMessage = messages.filter(m => !m.isRead);
+      return filteredMessage.length;
+    }
+  }
+
   return (
     <nav id={id ? id : ""} className="navbar is-fresh is-transparent no-shadow" role="navigation"
          aria-label="main navigation">
@@ -108,7 +115,7 @@ const Navbar = ({id, auth, logout, loadFresh, messages}) => {
               </div>
               <div className="navbar-item has-dropdown is-hoverable">
                 <Link to="#" className="navbar-link">
-                  Messages ({messages && messages.length})
+                  Messages ({handleFilteredMsgs(messages)})
                 </Link>
                 <div className="navbar-dropdown navbar-dropdown-messages">
                   {user.messages && <ReceivedMessages/>}

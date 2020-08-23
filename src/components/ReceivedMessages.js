@@ -2,11 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {getMessages} from "../reducers";
 import {Link} from "react-router-dom";
+import {markMessageAsRead} from "../actions";
 
-const ReceivedMessages = ({dispatch, messages}) => {
+const ReceivedMessages = ({messages}) => {
+
+  const handleMessageRead = message => {
+    markMessageAsRead(message);
+  }
   const renderMessages = messages => {
-    if (messages.length === 0) return <div className="navbar-item">No Messages :(</div>
-    return messages.map((msg) => {
+    const filteredMessages = messages.filter(m => !m.isRead).map((msg) => {
       console.log(msg);
       return (
         <div key={msg.id}>
@@ -23,15 +27,15 @@ const ReceivedMessages = ({dispatch, messages}) => {
               <div className="button is-success s-m-r">Join</div>
             </Link>
             <button
-              onClick={() => {
-              }}
+              onClick={() => handleMessageRead(msg)}
               className="button is-warning">Later
             </button>
           </div>
         </div>
-
       )
     })
+    if (filteredMessages.length === 0) return <div className="navbar-item">No Messages :(</div>
+    return filteredMessages;
   }
 
   return renderMessages(messages);
