@@ -406,6 +406,30 @@ Cards and Card content styles
   margin-right: 10px;
 }
 
+
+
+.navbar-dropdown-messages {
+  min-width: 320px !important;
+
+  .from-user {
+    padding-left: 20px;
+    margin-bottom: 10px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  hr {
+    margin: 0;
+  }
+
+  .navbar-item-message {
+    white-space: inherit;
+  }
+}
+
+
 // Flex Card
 .flex-card {
   position: relative;

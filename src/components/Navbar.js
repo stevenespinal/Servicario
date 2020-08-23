@@ -1,9 +1,12 @@
 import React, {useEffect} from 'react'
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
+import ReceivedMessages from "./ReceivedMessages";
+import {getMessages} from "../reducers";
+import {connect} from "react-redux";
 
 
-const Navbar = ({id, auth, logout, loadFresh}) => {
+const Navbar = ({id, auth, logout, loadFresh, messages}) => {
   const {addToast} = useToasts();
 
   useEffect(() => {
@@ -22,8 +25,8 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
     });
   }
 
-  // console.log("auth", auth);
   const {user, isAuth} = auth;
+
   return (
     <nav id={id ? id : ""} className="navbar is-fresh is-transparent no-shadow" role="navigation"
          aria-label="main navigation">
@@ -82,25 +85,37 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
               Faq
             </Link>
 
-            {isAuth && <div className="navbar-item has-dropdown is-hoverable">
-              <Link to="#" className="navbar-link">
-                Manage
-              </Link>
-              <div className="navbar-dropdown">
-                <Link to="/services/new" className="navbar-item">
-                  Create Service
+            {isAuth &&
+            <>
+              <div className="navbar-item has-dropdown is-hoverable">
+                <Link to="#" className="navbar-link">
+                  Manage
                 </Link>
-                <Link to="/services/me" className="navbar-item">
-                  Manage Your Services
-                </Link>
-                <Link to="/offers/sent" className="navbar-item">
-                  Sent Offers
-                </Link>
-                <Link to="/offers/received" className="navbar-item">
-                  Received Offers
-                </Link>
+                <div className="navbar-dropdown">
+                  <Link to="/services/new" className="navbar-item">
+                    Create Service
+                  </Link>
+                  <Link to="/services/me" className="navbar-item">
+                    Manage Your Services
+                  </Link>
+                  <Link to="/offers/sent" className="navbar-item">
+                    Sent Offers
+                  </Link>
+                  <Link to="/offers/received" className="navbar-item">
+                    Received Offers
+                  </Link>
+                </div>
               </div>
-            </div>}
+              <div className="navbar-item has-dropdown is-hoverable">
+                <Link to="#" className="navbar-link">
+                  Messages ({messages && messages.length})
+                </Link>
+                <div className="navbar-dropdown navbar-dropdown-messages">
+                  {user.messages && <ReceivedMessages/>}
+                </div>
+              </div>
+            </>
+            }
             {isAuth &&
             <Link to="/"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
             {!isAuth && (
@@ -121,4 +136,8 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
   )
 }
 
-export default Navbar
+const mapStateToProps = state => ({
+  messages: getMessages(state)
+});
+
+export default connect(mapStateToProps)(Navbar)

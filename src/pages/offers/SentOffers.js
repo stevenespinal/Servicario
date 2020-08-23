@@ -4,12 +4,14 @@ import ServiceItem from '../../components/service/ServiceItem'
 import {fetchSentOffer, collaborate} from "../../actions";
 // import Spinner from "../../components/Spinner";
 import {connect} from "react-redux";
+import {withToastManager} from "react-toast-notifications";
 import {newCollaboration, newMessage} from "../../helpers/offers";
 
 class SentOffers extends Component {
   componentDidMount() {
     const {auth: {user}} = this.props;
     this.props.dispatch(fetchSentOffer(user.uid));
+
   }
 
   statusClass = status => {
@@ -23,12 +25,17 @@ class SentOffers extends Component {
   }
 
   createCollaboration = offer => {
-    const {auth: {user}} = this.props;
+    const {auth: {user}, toastManager} = this.props;
     const collaboration = newCollaboration({offer, fromUser: user});
     const msg = newMessage({offer, fromUser: user});
     console.log("collab", collaboration, "msg", msg);
-    collaborate({collaboration, msg}).then(() => {
+    this.props.collaborate({collaboration, msg}).then(() => {
       console.log("collaboration was created");
+      toastManager.add("Collaboration was created.", {
+        appearance: 'success',
+        autoDismiss: true,
+        autoDismissTimeout: 3000
+      });
     });
   }
 
@@ -64,7 +71,7 @@ class SentOffers extends Component {
                       <span className="label">Time:</span> {o.time} hours
                     </div>
                   </div>
-                  {o.status === "accepted" && <div>
+                  {o.status === "accepted" && !o.collaborationCreated && <div>
                     <hr/>
                     <button className="button is-dark" onClick={() => this.createCollaboration(o)}>Collaborate</button>
                   </div>}
@@ -83,4 +90,4 @@ const mapStateToProps = ({offers}) => ({
 });
 
 
-export default withAuthorization(connect(mapStateToProps)(SentOffers));
+export default withAuthorization(connect(mapStateToProps, {collaborate})(withToastManager(SentOffers)));

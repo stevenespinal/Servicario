@@ -12,6 +12,7 @@ import ServiceCreate from "./pages/services/ServiceCreate";
 import UserServices from "./pages/services/UserServices";
 import SentOffers from "./pages/offers/SentOffers";
 import ReceivedOffers from "./pages/offers/ReceivedOffers";
+
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
