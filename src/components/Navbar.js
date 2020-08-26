@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 import ReceivedMessages from "./ReceivedMessages";
-import {getMessages} from "../reducers";
-import {connect} from "react-redux";
+// import {getMessages} from "../reducers";
+// import {connect} from "react-redux";
 
 
 const Navbar = ({id, auth, logout, loadFresh, messages}) => {
@@ -20,19 +20,20 @@ const Navbar = ({id, auth, logout, loadFresh, messages}) => {
   const handleToast = () => {
     logout();
     addToast(`Logged out.`, {
-      appearance: "error", autoDismissTimeout: 3000,
+      appearance: "error", 
+      autoDismissTimeout: 3000,
       autoDismiss: true
     });
   }
 
   const {user, isAuth} = auth;
 
-  const handleFilteredMsgs = messages => {
-    if (messages) {
-      const filteredMessage = messages.filter(m => !m.isRead);
-      return filteredMessage.length;
-    }
-  }
+  // const handleFilteredMsgs = messages => {
+  //   if (messages) {
+  //     const filteredMessage = messages.filter(m => !m.isRead);
+  //     return filteredMessage.length;
+  //   }
+  // }
 
   return (
     <nav id={id ? id : ""} className="navbar is-fresh is-transparent no-shadow" role="navigation"
@@ -115,7 +116,8 @@ const Navbar = ({id, auth, logout, loadFresh, messages}) => {
               </div>
               <div className="navbar-item has-dropdown is-hoverable">
                 <Link to="#" className="navbar-link">
-                  Messages ({handleFilteredMsgs(messages)})
+                  {/* Messages ({handleFilteredMsgs(messages)}) */}
+                  Messages
                 </Link>
                 <div className="navbar-dropdown navbar-dropdown-messages">
                   {user.messages && <ReceivedMessages/>}
@@ -143,8 +145,11 @@ const Navbar = ({id, auth, logout, loadFresh, messages}) => {
   )
 }
 
-const mapStateToProps = state => ({
-  messages: getMessages(state)
-});
+// const mapStateToProps = state => ({
+//   // messages: getMessages(state)
+//   messages: state.auth.user.messages ? getMessages(state) : 0
+//   // messages: 0
+// });
 
-export default connect(mapStateToProps)(Navbar)
+// export default connect(mapStateToProps)(Navbar)
+export default Navbar;
