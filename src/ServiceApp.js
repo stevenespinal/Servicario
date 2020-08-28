@@ -8,7 +8,6 @@ import {logout} from "./actions";
 
 class ServiceApp extends Component {
 
-
   handleLogOut = () => {
     this.props.logout();
   }
@@ -21,7 +20,6 @@ class ServiceApp extends Component {
       <Routes/>
     </>
   );
-
 
   render() {
     const {auth} = this.props;

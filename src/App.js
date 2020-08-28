@@ -24,7 +24,6 @@ class App extends Component {
     this.unsubscribeMessages();
   }
 
-
   render() {
     return (
       <Provider store={store}>

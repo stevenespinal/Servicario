@@ -7,5 +7,4 @@ export const subscribeToMessages = (userId, callback) => db.collection("profiles
   callback(messages);
 });
 
-
 export const markMessageAsRead = msg => db.collection("profiles").doc(msg.toUser).collection("messages").doc(msg.id).update({isRead: true});

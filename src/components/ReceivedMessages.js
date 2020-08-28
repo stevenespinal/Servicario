@@ -34,7 +34,7 @@ const ReceivedMessages = ({messages}) => {
         </div>
       )
     })
-    if (filteredMessages.length === 0) return <div className="navbar-item">No Messages :(</div>
+    if (filteredMessages.length === 0) return <div className="navbar-item">No Messages <span role="img" aria-label="frown" style={{marginLeft: "5px"}}>😓</span></div>
     return filteredMessages;
   }
 
