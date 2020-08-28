@@ -16,3 +16,5 @@ export const collaborate = ({collaboration, msg}) => dispatch => api.createColla
 export const subscribeToMessages = userId => dispatch => api.subscribeToMessages(userId, messages => dispatch({type: FETCH_USER_MESSAGES_SUCCESS, messages}));
 
 export const markMessageAsRead = msg => api.markMessageAsRead(msg);
+
+export const fetchCollaborations = userId => api.fetchCollaborations(userId);

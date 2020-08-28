@@ -12,19 +12,20 @@ import ServiceCreate from "./pages/services/ServiceCreate";
 import UserServices from "./pages/services/UserServices";
 import SentOffers from "./pages/offers/SentOffers";
 import ReceivedOffers from "./pages/offers/ReceivedOffers";
+import ReceivedCollaborations from "./pages/collaborations/ReceivedCollaborations";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
     <Route path="/profile" component={Profile}/>
     <Route path="/secret" component={Secret}/>
-    {/*<Route path="/services" component={Services}/>*/}
     <Route exact path="/services" component={Services}/>
     <Route path="/services/new" component={ServiceCreate}/>
     <Route path="/services/me" component={UserServices}/>
     <Route path="/services/:id" component={ServiceDetail}/>
     <Route path="/offers/sent" component={SentOffers}/>
     <Route path="/offers/received" component={ReceivedOffers}/>
+    <Route path="/collaborations/me" component={ReceivedCollaborations}/>
     <Route path="/faq" component={Faq}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
