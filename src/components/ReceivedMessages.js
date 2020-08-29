@@ -1,14 +1,22 @@
 import React from "react";
 import {connect} from "react-redux";
 import {getMessages} from "../reducers";
-import {Link} from "react-router-dom";
 import {markMessageAsRead} from "../actions";
+import {useHistory} from "react-router-dom";
 
 const ReceivedMessages = ({messages}) => {
+
+  const history = useHistory();
 
   const handleMessageRead = message => {
     markMessageAsRead(message);
   }
+
+  const navigateToCollaboration = message => {
+    markMessageAsRead(message);
+    history.push(message.cta);
+  }
+
   const renderMessages = messages => {
     const filteredMessages = messages.filter(m => !m.isRead).map((msg) => {
       console.log(msg);
@@ -22,10 +30,9 @@ const ReceivedMessages = ({messages}) => {
             <div>
               {msg.text}
             </div>
-            <Link onClick={() => {
-            }} to={msg.cta}>
+            <div onClick={() => {navigateToCollaboration(msg)}}>
               <div className="button is-success s-m-r">Join</div>
-            </Link>
+            </div>
             <button
               onClick={() => handleMessageRead(msg)}
               className="button is-warning">Later

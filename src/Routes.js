@@ -13,6 +13,7 @@ import UserServices from "./pages/services/UserServices";
 import SentOffers from "./pages/offers/SentOffers";
 import ReceivedOffers from "./pages/offers/ReceivedOffers";
 import ReceivedCollaborations from "./pages/collaborations/ReceivedCollaborations";
+import CollaborationDetail from "./pages/collaborations/CollaborationDetail";
 
 const Routes = () => (
   <Switch>
@@ -26,6 +27,7 @@ const Routes = () => (
     <Route path="/offers/sent" component={SentOffers}/>
     <Route path="/offers/received" component={ReceivedOffers}/>
     <Route path="/collaborations/me" component={ReceivedCollaborations}/>
+    <Route path="/collaborations/:id" component={CollaborationDetail}/>
     <Route path="/faq" component={Faq}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
