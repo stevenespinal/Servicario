@@ -8,14 +8,14 @@ import {logout} from "./actions";
 
 class ServiceApp extends Component {
 
-  handleLogOut = () => {
-    this.props.logout();
+  handleLogOut = uid => {
+    this.props.logout(uid);
   }
 
   renderApplication = auth => (
     <>
-      <Navbar loadFresh id="navbar-main" auth={auth} logout={this.handleLogOut}/>
-      <Navbar id="navbar-clone" auth={auth} logout={this.handleLogOut}/>
+      <Navbar loadFresh id="navbar-main" auth={auth} logout={() => this.handleLogOut(auth.user.uid)}/>
+      <Navbar id="navbar-clone" auth={auth} logout={() => this.handleLogOut(auth.user.uid)}/>
       <Sidebar/>
       <Routes/>
     </>
