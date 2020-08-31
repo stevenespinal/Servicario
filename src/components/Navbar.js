@@ -40,7 +40,7 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
             <div className="title">Servicio</div>
           </Link>
 
-          <Link to="/" className="navbar-item is-hidden-desktop is-hidden-tablet">
+          <Link to="#" className="navbar-item is-hidden-desktop is-hidden-tablet">
             <div id="menu-icon-wrapper" className="menu-icon-wrapper" style={{visibility: 'visible'}}>
               <svg width="1000px" height="1000px">
                 <path className="path1"
@@ -53,7 +53,7 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
             </div>
           </Link>
 
-          <Link to="/" role="button" className="navbar-burger" aria-label="menu" aria-expanded="false"
+          <Link to="#" role="button" className="navbar-burger" aria-label="menu" aria-expanded="false"
                 data-target="navbar-menu">
             <span aria-hidden="true"/>
             <span aria-hidden="true"/>

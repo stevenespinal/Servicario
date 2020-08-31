@@ -6,7 +6,7 @@ export const newCollaboration = ({offer: {service, time, toUser, id}, fromUser})
   image: service.image,
   time: time * 60 * 60,
   allowedPeople: [fromUser.uid, toUser.uid],
-  joinedPeopled: [],
+  joinedPeople: [],
   toUser: toUser.uid,
   fromUser: fromUser.uid,
   fromOffer: id,
@@ -21,7 +21,7 @@ export const newMessage = ({offer: {service, toUser}, fromUser}) => ({
   cta: '',
   toUser: toUser.uid,
   fromUser: {
-    id: fromUser.uid,
+    // id: fromUser.uid,
     name: fromUser.fullName,
     avatar: fromUser.avatar
   },
