@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import withAuthorization from '../../components/hoc/withAuthorization';
 import {withRouter} from "react-router-dom";
-import {subscribeToCollaboration, joinCollaboration, subscribeToProfile} from "../../actions";
+import {subscribeToCollaboration, joinCollaboration, subscribeToProfile, leaveCollaboration} from "../../actions";
 import JoinedPeople from "../../components/collaboration/JoinedPeople";
 
 class CollaborationDetail extends Component {
@@ -28,8 +28,11 @@ class CollaborationDetail extends Component {
   }
 
   componentWillUnmount() {
+    const {id} = this.props.match.params;
+    const {user} = this.props.auth;
     this.unsubscribeFromCollaboration();
     Object.keys(this.peopleWatchers).forEach(uid => this.peopleWatchers[uid]());
+    user && leaveCollaboration(id, user.uid);
   }
 
   render() {

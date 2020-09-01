@@ -24,6 +24,12 @@ export const joinCollaboration = (collaborationId, userId) => {
   return db.collection("collaborations").doc(collaborationId).update({joinedPeople: firebase.firestore.FieldValue.arrayUnion(userRef)});
 }
 
+export const leaveCollaboration = (collaborationId, userId) => {
+  const userRef = createRef('profiles', userId);
+
+  return db.collection("collaborations").doc(collaborationId).update({joinedPeople: firebase.firestore.FieldValue.arrayRemove(userRef)});
+}
+
 export const subscribeToProfile = (uid, callback) => db.collection("profiles").doc(uid).onSnapshot(snapshot => {
   const user = {id: snapshot.id, ...snapshot.data()};
   callback(user)
