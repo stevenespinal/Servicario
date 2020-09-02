@@ -2,16 +2,30 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import withAuthorization from '../../components/hoc/withAuthorization';
 import {withRouter} from "react-router-dom";
-import {subscribeToCollaboration, joinCollaboration, subscribeToProfile, leaveCollaboration} from "../../actions";
+import {
+  subscribeToCollaboration,
+  joinCollaboration,
+  subscribeToProfile,
+  leaveCollaboration,
+  sendCollabMessage,
+  subToMessages
+} from "../../actions";
 import JoinedPeople from "../../components/collaboration/JoinedPeople";
+import moment from "moment";
+// import collaboration from "../../reducers/collaboration";
+import ChatMessages from "../../components/collaboration/ChatMessages";
 
 class CollaborationDetail extends Component {
+  state = {
+    inputValue: ''
+  }
 
   componentDidMount() {
     const {id} = this.props.match.params;
     const {user} = this.props.auth;
     joinCollaboration(id, user.uid);
     this.watchCollabChanges(id);
+    this.watchMessagesChanges(id);
   }
 
   watchCollabChanges = id => {
@@ -27,16 +41,52 @@ class CollaborationDetail extends Component {
     });
   }
 
+  watchMessagesChanges = collabId => {
+    this.unsubscribeFromMessages = this.props.subToMessages(collabId);
+  }
+
   componentWillUnmount() {
     const {id} = this.props.match.params;
     const {user} = this.props.auth;
     this.unsubscribeFromCollaboration();
+    this.unsubscribeFromMessages();
     Object.keys(this.peopleWatchers).forEach(uid => this.peopleWatchers[uid]());
     user && leaveCollaboration(id, user.uid);
   }
 
+  handleChange = (e) => {
+    this.setState({inputValue: e.target.value});
+  }
+
+  onSendMessage = inputValue => {
+    if (inputValue.trim() === "") return;
+    const timestamp = moment().valueOf().toString();
+    const {auth: {user}, collaboration} = this.props;
+
+    const message = {
+      user: {
+        uid: user.uid,
+        avatar: user.avatar,
+        name: user.fullName
+      },
+      timestamp: parseInt(timestamp, 10),
+      content: inputValue.trim()
+    }
+    sendCollabMessage({message, collabId: collaboration.id, timestamp}).then(() => this.setState({inputValue: ''}));
+  }
+
+  onKeyboardPress = (e) => {
+    if (e.key === "Enter") {
+      this.onSendMessage(this.state.inputValue);
+    }
+  }
+
+
+
   render() {
-    const {collaboration, joinedPeople} = this.props;
+    const {collaboration, joinedPeople, messages, auth: {user}} = this.props;
+    const {inputValue} = this.state;
+    console.log(messages);
     return (
       <div className="content-wrapper">
         <div className="root">
@@ -48,30 +98,22 @@ class CollaborationDetail extends Component {
             <div className="viewBoard">
               <div className="viewChatBoard">
                 <div className="headerChatBoard">
-                  <img className="viewAvatarItem" src="https://i.imgur.com/cVDadwb.png" alt="icon avatar"/>
-                  <span className="textHeaderChatBoard">Filip Jerga</span>
+                  <img className="viewAvatarItem" src={user.avatar} alt="icon avatar"/>
+                  <span className="textHeaderChatBoard">{user.fullName}</span>
                 </div>
                 <div className="viewListContentChat">
-                  <div className="viewWrapItemLeft">
-                    <div className="viewWrapItemLeft3">
-                      <img src="https://i.imgur.com/cVDadwb.png" alt="avatar" className="peerAvatarLeft"/>
-                      <div className="viewItemLeft">
-                        <span className="textContentItem">hey</span>
-                      </div>
-                    </div>
-                    <span className="textTimeLeft">Oct 31, 2019</span>
-                  </div>
-                  <div className="viewItemRight">
-                    <span className="textContentItem">hey</span>
-                  </div>
+                  <ChatMessages messages={messages} authUser={user}/>
                   <div style={{float: "left", clear: "both"}}/>
                 </div>
                 <div className="viewBottom">
                   <input
-                    onChange={() => {
-                    }}
+                    onChange={(e) => this.handleChange(e)}
+                    value={inputValue}
+                    onKeyPress={this.onKeyboardPress}
                     className="viewInput"
                     placeholder="Type your message..."/>
+                  <button onClick={() => this.onSendMessage(inputValue)} className="is-primary button is-medium">Send
+                  </button>
                 </div>
               </div>
             </div>
@@ -82,10 +124,11 @@ class CollaborationDetail extends Component {
   }
 }
 
-const mapDispatchToProps = () => ({subscribeToCollaboration, subscribeToProfile});
+const mapDispatchToProps = () => ({subscribeToCollaboration, subscribeToProfile, subToMessages});
 const mapStateToProps = ({collaboration}) => ({
   collaboration: collaboration.joined,
-  joinedPeople: collaboration.joinedPeople
+  joinedPeople: collaboration.joinedPeople,
+  messages: collaboration.messages
 });
 
 const Collaboration = withAuthorization(withRouter(CollaborationDetail));

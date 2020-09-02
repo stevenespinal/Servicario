@@ -1,4 +1,9 @@
-import {SET_COLLABORATION, SET_COLLABORATION_JOINED_PEOPLE, UPDATE_COLLABORATION_USER} from "../types";
+import {
+  SET_COLLABORATION,
+  SET_COLLABORATION_JOINED_PEOPLE,
+  UPDATE_COLLABORATION_USER,
+  SET_COLLABORATION_MESSAGES
+} from "../types";
 import {combineReducers} from "redux";
 
 const initCollaboration = () => {
@@ -33,8 +38,16 @@ const initCollaboration = () => {
     }
   }
   const messages = (state = [], action) => {
-    const {type} = action;
+    const {type, messages} = action;
     switch (type) {
+      case SET_COLLABORATION_MESSAGES:
+        const newMessages = [...state];
+        messages.forEach(change => {
+          if (change.type === "added") {
+            newMessages.push({id: change.doc.id, ...change.doc.data()});
+          }
+        });
+        return newMessages;
       default:
         return state;
     }
