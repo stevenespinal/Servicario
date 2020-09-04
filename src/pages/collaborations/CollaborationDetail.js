@@ -2,17 +2,19 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import withAuthorization from '../../components/hoc/withAuthorization';
 import {withRouter} from "react-router-dom";
+import {Timestamp} from "../../db";
 import {
   subscribeToCollaboration,
   joinCollaboration,
   subscribeToProfile,
   leaveCollaboration,
   sendCollabMessage,
-  subToMessages
+  subToMessages,
+  startCollaboration
 } from "../../actions";
 import JoinedPeople from "../../components/collaboration/JoinedPeople";
 import moment from "moment";
-// import collaboration from "../../reducers/collaboration";
+import collaboration from "../../reducers/collaboration";
 import ChatMessages from "../../components/collaboration/ChatMessages";
 
 class CollaborationDetail extends Component {
@@ -82,6 +84,13 @@ class CollaborationDetail extends Component {
   }
 
 
+  onStartCollaboration = collaboration => {
+    // alert(`Starting collab ${JSON.stringify(collaboration.title)}`);
+    const {id, time} = collaboration;
+    const secondsNow = Timestamp.now().seconds;
+    const expiresAt = new Timestamp(secondsNow + time, 0);
+    startCollaboration(id, expiresAt);
+  }
 
   render() {
     const {collaboration, joinedPeople, messages, auth: {user}} = this.props;
@@ -90,7 +99,7 @@ class CollaborationDetail extends Component {
     return (
       <div className="content-wrapper">
         <div className="root">
-          <h1>{collaboration.title}</h1>
+          <h1 style={{fontWeight: "bold", fontSize: "24px"}}>{collaboration.title}</h1>
           <div className="body">
             <div className="viewListUser">
               <JoinedPeople users={joinedPeople}/>
@@ -98,8 +107,15 @@ class CollaborationDetail extends Component {
             <div className="viewBoard">
               <div className="viewChatBoard">
                 <div className="headerChatBoard">
-                  <img className="viewAvatarItem" src={user.avatar} alt="icon avatar"/>
-                  <span className="textHeaderChatBoard">{user.fullName}</span>
+                  <div className="headerChatUser">
+                    <img className="viewAvatarItem" src={user.avatar} alt="icon avatar"/>
+                    <span className="textHeaderChatBoard">{user.fullName}</span>
+                  </div>
+                  <div className="headerChatButton">
+                    <button className="button is-success" onClick={() => this.onStartCollaboration(collaboration)}>Start
+                      Collaboration
+                    </button>
+                  </div>
                 </div>
                 <div className="viewListContentChat">
                   <ChatMessages messages={messages} authUser={user}/>

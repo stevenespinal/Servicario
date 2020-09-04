@@ -3,7 +3,7 @@ import moment from "moment";
 
 
 const ChatMessages = ({messages, authUser}) => {
-  const renderMessages = messages => {
+  const renderMessages = (messages, authUser) => {
     if (messages.length > 0) {
       return messages.map(msg => {
         if (msg.user.uid === authUser.uid) {

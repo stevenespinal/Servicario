@@ -4,7 +4,8 @@ import {
   SET_COLLABORATION,
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
-  SET_COLLABORATION_MESSAGES
+  SET_COLLABORATION_MESSAGES,
+  RESET_COLLABORATION_MESSAGES
 } from '../types';
 import * as api from '../api';
 
@@ -65,9 +66,16 @@ export const subscribeToProfile = uid => dispatch =>
 
 export const sendCollabMessage = message => api.sendCollabMessage(message);
 
-export const subToMessages = collabId => dispatch => api.subToMessages(collabId, messages => {
+export const subToMessages = collabId => dispatch => {
   dispatch({
-    type: SET_COLLABORATION_MESSAGES,
-    messages
+    type: RESET_COLLABORATION_MESSAGES
   });
-});
+  return api.subToMessages(collabId, messages => {
+    dispatch({
+      type: SET_COLLABORATION_MESSAGES,
+      messages
+    });
+  });
+}
+
+export const startCollaboration = (collabId, expiresAt) => api.startCollaboration(collabId, expiresAt);

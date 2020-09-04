@@ -2,7 +2,8 @@ import {
   SET_COLLABORATION,
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
-  SET_COLLABORATION_MESSAGES
+  SET_COLLABORATION_MESSAGES,
+  RESET_COLLABORATION_MESSAGES
 } from "../types";
 import {combineReducers} from "redux";
 
@@ -48,6 +49,8 @@ const initCollaboration = () => {
           }
         });
         return newMessages;
+      case RESET_COLLABORATION_MESSAGES:
+        return [];
       default:
         return state;
     }

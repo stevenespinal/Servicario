@@ -46,3 +46,5 @@ export const sendCollabMessage = ({message, collabId, timestamp}) =>
 
 export const subToMessages = (collabId, done) =>
   db.collection("collaborations").doc(collabId).collection("messages").onSnapshot(snapshot => done(snapshot.docChanges()))
+
+export const startCollaboration = (collabId, expiresAt) => db.collection("collaborations").doc(collabId).update({expiresAt});
