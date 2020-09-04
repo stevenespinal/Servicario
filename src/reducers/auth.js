@@ -6,12 +6,17 @@ import {
 } from "../types";
 import { combineReducers } from "redux";
 
+const INITIAL_USER_STATE = {
+  messages: [],
+  services: []
+}
+
 const initAuth = () => {
-  const user = (state = {}, action) => {
+  const user = (state = INITIAL_USER_STATE, action) => {
     const {type, user, services, messages} = action;
     switch (type) {
       case SET_AUTH_USER:
-        return user;
+        return {...user, services: [], messages: []};
       case FETCH_USER_SERVICES_SUCCESS:
         return {...state, services}
       case FETCH_USER_MESSAGES_SUCCESS:

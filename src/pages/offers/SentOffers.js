@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import withAuthorization from '../../components/hoc/withAuthorization'
 import ServiceItem from '../../components/service/ServiceItem'
 import {fetchSentOffer, collaborate} from "../../actions";
-// import Spinner from "../../components/Spinner";
 import {connect} from "react-redux";
 import {withToastManager} from "react-toast-notifications";
 import {newCollaboration, newMessage} from "../../helpers/offers";
+import Spinner from "../../components/Spinner";
 
 class SentOffers extends Component {
   componentDidMount() {
@@ -28,8 +28,8 @@ class SentOffers extends Component {
     const {auth: {user}, toastManager} = this.props;
     const collaboration = newCollaboration({offer, fromUser: user});
     const msg = newMessage({offer, fromUser: user});
-    console.log("collab", collaboration, "msg", msg);
-    this.props.collaborate({collaboration, msg}).then(() => {
+    // console.log("collab", collaboration, "msg", msg);
+    this.props.collaborate({collaboration, message: msg}).then(() => {
       console.log("collaboration was created");
       toastManager.add("Collaboration was created.", {
         appearance: 'success',
@@ -40,11 +40,15 @@ class SentOffers extends Component {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, isFetching} = this.props;
+    if (isFetching) {
+      return <Spinner/>
+    }
     return (
       <div className="container">
         <div className="content-wrapper">
           <h1 className="title">Sent Offers</h1>
+          {!isFetching && offers.length === 0 && <span className="tag is-warning is-large">You don't have any sent offers.</span>}
           <div className="columns">
             <div className="column is-one-third">
               {offers.map(o => (
@@ -86,8 +90,8 @@ class SentOffers extends Component {
 }
 
 const mapStateToProps = ({offers}) => ({
-  offers: offers.sent
+  offers: offers.sent,
+  isFetching: offers.isFetching
 });
-
 
 export default withAuthorization(connect(mapStateToProps, {collaborate})(withToastManager(SentOffers)));

@@ -4,6 +4,7 @@ import ServiceItem from '../../components/service/ServiceItem'
 import {fetchReceivedOffer} from "../../actions";
 import {connect} from "react-redux";
 import {changeOfferStatus} from "../../actions";
+import Spinner from "../../components/Spinner";
 
 class ReceivedOffers extends Component {
   componentDidMount() {
@@ -30,13 +31,16 @@ class ReceivedOffers extends Component {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, isFetching} = this.props;
 
-    // if (!offers) return <Spinner/>
+    if (isFetching) {
+      return <Spinner/>
+    }
     return (
       <div className="container">
         <div className="content-wrapper">
           <h1 className="title">Received Offers</h1>
+          {!isFetching && offers.length === 0 && <span className="tag is-warning is-large">You don't have any received offers.</span>}
           <div className="columns">
             <div className="column is-one-third">
               {offers.map((o) => (
@@ -79,12 +83,13 @@ class ReceivedOffers extends Component {
 }
 
 const mapStateToProps = ({offers}) => ({
-  offers: offers.received
+  offers: offers.received,
+  isFetching: offers.isFetching
 });
 
 const mapDispatchToProps = () => ({
   fetchReceivedOffer,
   changeOfferStatus
-})
+});
 
 export default withAuthorization(connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers));

@@ -508,6 +508,7 @@ input::placeholder {
   font-size: 34px;
   font-weight: bold;
   margin-right: 20px;
+  min-width: 180px;
 }
 
 .root {
@@ -1034,4 +1035,9 @@ input::placeholder {
   width: 40px;
   height: 40px;
   margin-left: 10px;
+}
+
+input[disabled] {
+  background: transparent;
+  cursor: not-allowed;
 }
