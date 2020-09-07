@@ -28,7 +28,6 @@ class SentOffers extends Component {
     const {auth: {user}, toastManager} = this.props;
     const collaboration = newCollaboration({offer, fromUser: user});
     const msg = newMessage({offer, fromUser: user});
-    // console.log("collab", collaboration, "msg", msg);
     this.props.collaborate({collaboration, message: msg}).then(() => {
       console.log("collaboration was created");
       toastManager.add("Collaboration was created.", {

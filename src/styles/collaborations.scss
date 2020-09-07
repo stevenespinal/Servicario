@@ -828,6 +828,26 @@ input::placeholder {
   color: rgb(199, 199, 199);
 }
 
+.media-content {
+  overflow: hidden;
+}
+
+.service-header-container {
+  display: flex;
+}
+
+.service-user {
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.service-price {
+  font-size: 40px;
+}
+
+.service-category {
+  margin: 10px;
+}
 /* View item message */
 
 .viewItemRight {
