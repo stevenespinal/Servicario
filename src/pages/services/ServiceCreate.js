@@ -30,11 +30,11 @@ const ServiceCreate = ({auth: {user: {uid}}}) => {
         autoDismiss: true
       })
     }).catch(error => {
-      addToast(error, {
+      addToast(error.message, {
         appearance: 'error',
         autoDismissTimeout: 3000,
         autoDismiss: true
-      })
+      });
     });
   }
 
