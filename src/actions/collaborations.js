@@ -5,7 +5,8 @@ import {
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
   SET_COLLABORATION_MESSAGES,
-  RESET_COLLABORATION_MESSAGES
+  RESET_COLLABORATION_MESSAGES,
+  REMOVE_COLLABORATION_MESSAGES
 } from '../types';
 import * as api from '../api';
 
@@ -64,8 +65,16 @@ export const subscribeToProfile = uid => dispatch =>
     dispatch({type: UPDATE_COLLABORATION_USER, user}));
 
 
-export const sendCollabMessage = message => api.sendCollabMessage(message);
+export const sendCollabMessage = message => dispatch => {
 
+  return api.sendCollabMessage(message).catch(err => {
+    dispatch({
+      type: REMOVE_COLLABORATION_MESSAGES,
+      messageId: message.timestamp
+    });
+    return Promise.reject("Collaboration Expired!");
+  });
+}
 export const subToMessages = collabId => dispatch => {
   dispatch({
     type: RESET_COLLABORATION_MESSAGES

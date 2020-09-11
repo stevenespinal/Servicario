@@ -75,7 +75,9 @@ class CollaborationDetail extends Component {
       timestamp: parseInt(timestamp, 10),
       content: inputValue.trim()
     }
-    sendCollabMessage({message, collabId: collaboration.id, timestamp}).then(() => this.setState({inputValue: ''}));
+    this.props.sendCollabMessage({message, collabId: collaboration.id, timestamp}).then(() => this.setState({inputValue: ''})).catch(err => {
+      this.setState({inputValue: ''});
+    });
   }
 
   onKeyboardPress = (e) => {
@@ -174,7 +176,7 @@ class CollaborationDetail extends Component {
   }
 }
 
-const mapDispatchToProps = () => ({subscribeToCollaboration, subscribeToProfile, subToMessages});
+const mapDispatchToProps = () => ({subscribeToCollaboration, subscribeToProfile, subToMessages, sendCollabMessage});
 const mapStateToProps = ({collaboration}) => ({
   collaboration: collaboration.joined,
   joinedPeople: collaboration.joinedPeople,

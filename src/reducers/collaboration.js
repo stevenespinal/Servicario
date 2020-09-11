@@ -3,7 +3,7 @@ import {
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
   SET_COLLABORATION_MESSAGES,
-  RESET_COLLABORATION_MESSAGES
+  RESET_COLLABORATION_MESSAGES, REMOVE_COLLABORATION_MESSAGES
 } from "../types";
 import {combineReducers} from "redux";
 
@@ -39,7 +39,7 @@ const initCollaboration = () => {
     }
   }
   const messages = (state = [], action) => {
-    const {type, messages} = action;
+    const {type, messages, messageId} = action;
     switch (type) {
       case SET_COLLABORATION_MESSAGES:
         const newMessages = [...state];
@@ -51,6 +51,8 @@ const initCollaboration = () => {
         return newMessages;
       case RESET_COLLABORATION_MESSAGES:
         return [];
+      case REMOVE_COLLABORATION_MESSAGES:
+        return state.filter(msg => msg.id !== messageId);
       default:
         return state;
     }
