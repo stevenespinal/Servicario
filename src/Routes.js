@@ -3,6 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 // import Services from "./pages/Services";
+import Logout from "./pages/Logout";
 import ServiceDetail from "./pages/ServiceDetail";
 import Faq from "./pages/Faq";
 import Login from "./pages/Login";
@@ -30,6 +31,7 @@ const Routes = () => (
     <Route path="/collaborations/:id" component={CollaborationDetail}/>
     <Route path="/faq" component={Faq}/>
     <Route path="/login" component={Login}/>
+    <Route path="/logout" component={Logout}/>
     <Route path="/register" component={Register}/>
   </Switch>
 );

@@ -1,21 +1,21 @@
-import React, {useState} from 'react'
+import React from 'react'
 import RegisterForm from "../components/auth";
 import {register} from "../actions";
 import {useToasts} from "react-toast-notifications";
-import {Redirect} from "react-router-dom";
+// import {Redirect} from "react-router-dom";
 import onlyGuest from "../components/hoc/onlyGuest";
 
 const Register = () => {
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
   const {addToast} = useToasts();
 
   const registerUser = userData => {
     register(userData).then(() => {
-      setRedirect(true)
-      addToast(`Welcome ${userData.fullName}, your account has been successfully created.`, {
-        appearance: "success", autoDismissTimeout: 3000,
-        autoDismiss: true
-      });
+      // setRedirect(true)
+      // addToast(`Welcome ${userData.fullName}, your account has been successfully created.`, {
+      //   appearance: "success", autoDismissTimeout: 3000,
+      //   autoDismiss: true
+      // });
     }, errorMessage => addToast(errorMessage, {
       appearance: 'error',
       autoDismissTimeout: 3000,
@@ -23,7 +23,7 @@ const Register = () => {
     }));
   }
 
-  if (redirect) return <Redirect to="/"/>
+  // if (redirect) return <Redirect to="/"/>
   return (
     <div className="auth-page">
       <div className="container has-text-centered">

@@ -10,7 +10,7 @@ class UserServices extends Component {
   }
 
   render () {
-    const {auth: {user: {services}}} = this.props
+    const {auth: {services}} = this.props;
     return (
       <div className="container">
         <div className="content-wrapper">

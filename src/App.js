@@ -17,6 +17,9 @@ class App extends Component {
         checkUserConnection(authUser.uid);
         this.unsubscribeMessages = store.dispatch(subscribeToMessages(authUser.uid));
       }
+      if (!authUser) {
+        this.unsubscribeMessages && this.unsubscribeMessages();
+      }
     });
   }
 

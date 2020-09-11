@@ -160,7 +160,10 @@ class CollaborationDetail extends Component {
                     placeholder="Type your message..."
                     disabled={status === "finished" || status === 'notStarted'}
                   />
-                  <button onClick={() => this.onSendMessage(inputValue)} className="is-primary button is-medium" disabled={status === "finished" || status === 'notStarted'}>Send</button>
+                  <button
+                    onClick={() => this.onSendMessage(inputValue)}
+                    className="is-primary button is-medium"
+                    disabled={status === "finished" || status === 'notStarted'}>Send</button>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {useToasts} from "react-toast-notifications";
 import ReceivedMessages from "./ReceivedMessages";
 
-const Navbar = ({id, auth, logout, loadFresh}) => {
+const Navbar = ({id, auth, loadFresh}) => {
   const {addToast} = useToasts();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
     document.body.appendChild(script);
   }, [loadFresh]);
   const handleToast = () => {
-    logout();
+    // logout();
     addToast(`Logged out.`, {
       appearance: "error",
       autoDismissTimeout: 3000,
@@ -22,7 +22,7 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
     });
   }
 
-  const {user, isAuth} = auth;
+  const {user, isAuth, messages} = auth;
 
   const handleFilteredMsgs = messages => {
     if (messages) {
@@ -115,16 +115,16 @@ const Navbar = ({id, auth, logout, loadFresh}) => {
               </div>
               <div className="navbar-item has-dropdown is-hoverable">
                 <Link to="#" className="navbar-link">
-                  Messages ({handleFilteredMsgs(user.messages)})
+                  Messages ({handleFilteredMsgs(messages)})
                 </Link>
                 <div className="navbar-dropdown navbar-dropdown-messages">
-                  {user.messages && <ReceivedMessages/>}
+                  {messages && <ReceivedMessages/>}
                 </div>
               </div>
             </>
             }
             {isAuth &&
-            <Link to="/"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
+            <Link to="/logout"><span className="button signup-button is-danger rounded raised" onClick={() => handleToast()}>Log Out</span></Link>}
             {!isAuth && (
               <>
                 <Link to="/login" className="navbar-item is-secondary modal-trigger" data-modal="auth-modal">
