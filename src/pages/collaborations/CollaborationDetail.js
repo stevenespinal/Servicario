@@ -16,6 +16,7 @@ import JoinedPeople from "../../components/collaboration/JoinedPeople";
 import moment from "moment";
 import Timer from "../../components/collaboration/Timer";
 import ChatMessages from "../../components/collaboration/ChatMessages";
+import Spinner from "../../components/Spinner";
 
 class CollaborationDetail extends Component {
   state = {
@@ -119,6 +120,9 @@ class CollaborationDetail extends Component {
     const {inputValue} = this.state;
     const status = this.getCollaborationStatus(collaboration);
 
+    if (status === 'loading') {
+      return <Spinner/>
+    }
     return (
       <div className="content-wrapper">
         <div className="root">
