@@ -41,7 +41,7 @@ class ReceivedOffers extends Component {
         <div className="content-wrapper">
           <h1 className="title">Received Offers</h1>
           {!isFetching && offers.length === 0 && <span className="tag is-warning is-large">You don't have any received offers.</span>}
-          <div className="columns">
+          <div className="columns is-multiline">
             <div className="column is-one-third">
               {offers.map((o) => (
                 <ServiceItem

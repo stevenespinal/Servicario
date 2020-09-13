@@ -48,7 +48,7 @@ class SentOffers extends Component {
         <div className="content-wrapper">
           <h1 className="title">Sent Offers</h1>
           {!isFetching && offers.length === 0 && <span className="tag is-warning is-large">You don't have any sent offers.</span>}
-          <div className="columns">
+          <div className="columns is-multiline">
             <div className="column is-one-third">
               {offers.map(o => (
                 <ServiceItem
